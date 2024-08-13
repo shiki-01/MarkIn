@@ -1,12 +1,11 @@
 import windowStateManager from 'electron-window-state';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import contextMenu from 'electron-context-menu';
-import path from 'path';
-import { initialize, enable } from '@electron/remote/main';
+import path, { dirname } from 'path';
+import { initialize, enable } from '@electron/remote/main/index.js';
 initialize();
 
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
