@@ -1,0 +1,5 @@
+<script lang="ts">
+	import "./_setting.css";
+</script>
+
+<h1>notification</h1>

@@ -2,15 +2,59 @@ import windowStateManager from 'electron-window-state';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import contextMenu from 'electron-context-menu';
 import path, { dirname } from 'path';
-import { initialize, enable } from '@electron/remote/main/index.js';
-initialize();
-
+import { enable, initialize } from '@electron/remote/main/index.js';
 import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
+import fs from 'fs';
+
+initialize();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const appDir = path.join(app.getPath('userData'), 'MarkIn');
+const configPath = path.join(appDir, 'config.json');
 
-import { createRequire } from 'module';
+const defaultConfig = {
+	theme: 'light',
+	ui: {
+		fontSize: 14,
+		fontFamily: 'Arial, sans-serif',
+	},
+	shortcuts: {
+		file: {
+			new: 'CmdOrCtrl+N',
+			open: 'CmdOrCtrl+O',
+			save: 'CmdOrCtrl+S',
+			saveAs: 'CmdOrCtrl+Shift+S',
+			close: 'CmdOrCtrl+W',
+		},
+		edit: {
+			undo: 'CmdOrCtrl+Z',
+			redo: 'CmdOrCtrl+Y',
+			cut: 'CmdOrCtrl+X',
+			copy: 'CmdOrCtrl+C',
+			paste: 'CmdOrCtrl+V',
+			selectAll: 'CmdOrCtrl+A',
+		},
+		view: {
+			toggleFullscreen: 'F11',
+			toggleDevTools: 'F12',
+			zoomIn: 'CmdOrCtrl+Plus',
+			zoomOut: 'CmdOrCtrl+-',
+			resetZoom: 'CmdOrCtrl+0',
+		},
+		help: 'F1',
+	},
+	preview: {
+		theme: 'github',
+	},
+	editor: {
+		theme: 'vs-dark',
+		fontSize: 14,
+		fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+	},
+};
+
 const require = createRequire(import.meta.url);
 
 if (process.env.NODE_ENV === 'development') {
@@ -35,6 +79,7 @@ function createWindow() {
 		backgroundColor: 'whitesmoke',
 		titleBarStyle: 'hidden',
 		autoHideMenuBar: true,
+		enableRemoteModule: true,
 		trafficLightPosition: {
 			x: 17,
 			y: 32,
@@ -100,7 +145,18 @@ function createMainWindow() {
 	if (dev) loadVite(port);
 }
 
+function checkSettingFile() {
+	if (!fs.existsSync(appDir)) {
+		fs.mkdirSync(appDir);
+	}
+
+	if (!fs.existsSync(configPath)) {
+		fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2));
+	}
+}
+
 app.once('ready', () => {
+	checkSettingFile();
 	createMainWindow();
 });
 app.on('activate', () => {
@@ -129,4 +185,13 @@ ipcMain.on('window-maximize', () => {
 	} else {
 		mainWindow.maximize();
 	}
+});
+
+//config
+ipcMain.on('config:get', (event) => {
+	event.returnValue = JSON.parse(fs.readFileSync(configPath).toString());
+});
+
+ipcMain.on('config:set', (event, config) => {
+	fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 });

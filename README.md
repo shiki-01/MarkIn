@@ -2,7 +2,8 @@
 
 ## Overview
 
-This project is a template for building desktop applications using Svelte 4 and Electron. It combines the reactive UI capabilities of Svelte with the powerful desktop application framework Electron.
+This project is a template for building desktop applications using Svelte 4 and Electron. It combines the reactive UI
+capabilities of Svelte with the powerful desktop application framework Electron.
 
 ## Features
 
@@ -45,6 +46,7 @@ This project is a template for building desktop applications using Svelte 4 and 
 ### Development
 
 To start the development server, run:
+
 ```sh
 npm run dev
 ```
@@ -54,6 +56,7 @@ This will start the Vite development server and open the Electron application wi
 ### Building
 
 To build the application, run:
+
 ```sh
 npm run build
 ```
