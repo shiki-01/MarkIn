@@ -15,44 +15,219 @@ const appDir = path.join(app.getPath('userData'), 'MarkIn');
 const configPath = path.join(appDir, 'config.json');
 
 const defaultConfig = {
-	theme: 'light',
-	ui: {
-		fontSize: 14,
-		fontFamily: 'Arial, sans-serif',
+	personal: {
+		startUp: {
+			startUpPage: "default",
+			default: "home"
+		},
+		privacy: {
+			history: true
+		}
+	},
+	notification: {
+		notification: true
 	},
 	shortcuts: {
 		file: {
-			new: 'CmdOrCtrl+N',
-			open: 'CmdOrCtrl+O',
-			save: 'CmdOrCtrl+S',
-			saveAs: 'CmdOrCtrl+Shift+S',
-			close: 'CmdOrCtrl+W',
+			id: "file",
+			active: true,
+			command: "",
+			isChange: false,
+			system: "System",
+			description: "File operations",
+			title: "File",
+			shortcuts: {
+				new: {
+					id: "new",
+					active: true,
+					command: "Control+N",
+					isChange: false,
+					system: "System",
+					description: "Create a new file",
+					title: "New File"
+				},
+				open: {
+					id: "open",
+					active: true,
+					command: "Control+O",
+					isChange: false,
+					system: "System",
+					description: "Open an existing file",
+					title: "Open File"
+				},
+				save: {
+					id: "save",
+					active: true,
+					command: "Control+S",
+					isChange: false,
+					system: "System",
+					description: "Save the current file",
+					title: "Save File"
+				},
+				saveAs: {
+					id: "saveAs",
+					active: true,
+					command: "Control+Shift+S",
+					isChange: false,
+					system: "System",
+					description: "Save the current file with a new name",
+					title: "Save File As"
+				},
+				close: {
+					id: "close",
+					active: true,
+					command: "Control+W",
+					isChange: false,
+					system: "System",
+					description: "Close the current file",
+					title: "Close File"
+				}
+			}
 		},
 		edit: {
-			undo: 'CmdOrCtrl+Z',
-			redo: 'CmdOrCtrl+Y',
-			cut: 'CmdOrCtrl+X',
-			copy: 'CmdOrCtrl+C',
-			paste: 'CmdOrCtrl+V',
-			selectAll: 'CmdOrCtrl+A',
+			id: "edit",
+			active: true,
+			command: "",
+			isChange: false,
+			system: "System",
+			description: "Edit operations",
+			title: "Edit",
+			shortcuts: {
+				undo: {
+					id: "undo",
+					active: true,
+					command: "Control+Z",
+					isChange: false,
+					system: "System",
+					description: "Undo the last action",
+					title: "Undo"
+				},
+				redo: {
+					id: "redo",
+					active: true,
+					command: "Control+Shift+Z",
+					isChange: false,
+					system: "System",
+					description: "Redo the last undone action",
+					title: "Redo"
+				},
+				cut: {
+					id: "cut",
+					active: true,
+					command: "Control+X",
+					isChange: false,
+					system: "System",
+					description: "Cut the selected text",
+					title: "Cut"
+				},
+				copy: {
+					id: "copy",
+					active: true,
+					command: "Control+C",
+					isChange: false,
+					system: "System",
+					description: "Copy the selected text",
+					title: "Copy"
+				},
+				paste: {
+					id: "paste",
+					active: true,
+					command: "Control+V",
+					isChange: false,
+					system: "System",
+					description: "Paste the clipboard content",
+					title: "Paste"
+				},
+				selectAll: {
+					id: "selectAll",
+					active: true,
+					command: "Control+A",
+					isChange: false,
+					system: "System",
+					description: "Select all text",
+					title: "Select All"
+				}
+			}
 		},
 		view: {
-			toggleFullscreen: 'F11',
-			toggleDevTools: 'F12',
-			zoomIn: 'CmdOrCtrl+Plus',
-			zoomOut: 'CmdOrCtrl+-',
-			resetZoom: 'CmdOrCtrl+0',
+			id: "view",
+			active: true,
+			command: "",
+			isChange: false,
+			system: "System",
+			description: "View operations",
+			title: "View",
+			shortcuts: {
+				zoomIn: {
+					id: "zoomIn",
+					active: true,
+					command: "Control+Plus",
+					isChange: false,
+					system: "System",
+					description: "Zoom in",
+					title: "Zoom In"
+				},
+				zoomOut: {
+					id: "zoomOut",
+					active: true,
+					command: "Control+-",
+					isChange: false,
+					system: "System",
+					description: "Zoom out",
+					title: "Zoom Out"
+				},
+				fullScreen: {
+					id: "fullScreen",
+					active: true,
+					command: "F11",
+					isChange: false,
+					system: "System",
+					description: "Toggle full screen mode",
+					title: "Full Screen"
+				},
+				toggleDevTools: {
+					id: "toggleDevTools",
+					active: true,
+					command: "Control+Shift+I",
+					isChange: false,
+					system: "System",
+					description: "Toggle developer tools",
+					title: "Toggle Developer Tools"
+				}
+			}
 		},
-		help: 'F1',
+		help: {
+			id: "help",
+			active: true,
+			command: "",
+			isChange: false,
+			system: "System",
+			description: "Help operations",
+			title: "Help",
+			shortcuts: {
+				toggleHelp: {
+					id: "toggleHelp",
+					active: true,
+					command: "F1",
+					isChange: false,
+					system: "System",
+					description: "Toggle help",
+					title: "Help"
+				}
+			}
+		}
 	},
-	preview: {
-		theme: 'github',
+	appearance: {
+		theme: "light",
+		accentColor: "#000000",
+		font: {
+			name: "Arial",
+			id: "arial"
+		},
+		fontSize: "14px"
 	},
-	editor: {
-		theme: 'vs-dark',
-		fontSize: 14,
-		fontFamily: 'Menlo, Monaco, "Courier New", monospace',
-	},
+	plugins: [],
+	language: 'en'
 };
 
 const require = createRequire(import.meta.url);
@@ -193,5 +368,6 @@ ipcMain.on('config:get', (event) => {
 });
 
 ipcMain.on('config:set', (event, config) => {
-	fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+	fs.writeFileSync(configPath, JSON.stringify(config, null, 2))
+	event.returnValue = true;
 });

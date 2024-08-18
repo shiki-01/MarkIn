@@ -1,13 +1,17 @@
 main {
-    @apply flex flex-col w-full p-4 pt-0 space-y-4;
+    @apply flex flex-col p-4 pt-0 space-y-4 w-full;
 }
 
-main h1 {
+main .title {
+    @apply flex flex-row items-center justify-between w-full;
+}
+
+main .title h1 {
     @apply text-xl font-bold w-full border-b-background border-b-2;
 }
 
 main .settings {
-    @apply flex flex-col w-full space-y-4 max-h-[calc(100vh-300px)] overflow-y-auto;
+    @apply flex flex-col w-full space-y-4 max-h-[calc(100vh-400px)] overflow-y-auto;
 }
 
 main .settings .blocks {
@@ -19,7 +23,8 @@ main .settings .blocks h2 {
 }
 
 main .settings .blocks .content {
-    @apply flex w-full flex-row items-center justify-between mt-0;
+    @apply flex w-full flex-row items-center justify-between;
+    margin-top: .5em !important;
 }
 
 main .settings .blocks .content p {

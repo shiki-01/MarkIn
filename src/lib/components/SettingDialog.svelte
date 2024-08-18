@@ -2,7 +2,7 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Separator } from "$lib/components/ui/separator";
 	import SidebarNav from '$lib/components/SidebarNav.svelte';
-	import { isSettingsOpen } from '$lib/stor';
+	import { isSettingsOpen } from '$lib/stor.js';
 
 	let open: boolean;
 
@@ -12,11 +12,11 @@
 </script>
 
 <Dialog.Root bind:open>
-	<Dialog.Content>
+	<Dialog.Content class="max-w-[700px]">
 		<Dialog.Title>Settings</Dialog.Title>
 		<Dialog.Header>Customize your experience.</Dialog.Header>
 		<Separator />
-		<aside class="-mx-4 lg:w-1/5">
+		<aside class="w-full">
 			<SidebarNav items={[
 				{ href: "/personal", title: "Personal" },
 				{ href: "/notification", title: "Notification" },
@@ -24,7 +24,6 @@
 				{ href: "/appearance", title: "Appearance" },
 				{ href: "/plugins", title: "Plugins" },
 				{ href: "/language", title: "Language" },
-				{ href: "/security", title: "Security" },
 				{ href: "/vcs", title: "VCS" },
 			]} isOpened="Personal" >
 			</SidebarNav>
