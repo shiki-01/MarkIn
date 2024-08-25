@@ -9,8 +9,12 @@ import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/xml';
-
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import Placeholder from '@tiptap/extension-placeholder';
+import Details from '@tiptap-pro/extension-details';
+import DetailsContent from '@tiptap-pro/extension-details-content';
+import DetailsSummary from '@tiptap-pro/extension-details-summary';
+import Emoji, { gitHubEmojis } from '@tiptap-pro/extension-emoji';
 
 const lowlight = createLowlight(all);
 
@@ -30,5 +34,23 @@ export const style = [
 	BulletList,
 	CodeBlockLowlight.configure({
 		lowlight,
+	}),
+	Details,
+	DetailsSummary,
+	DetailsContent,
+	Placeholder.configure({
+		includeChildren: true,
+		placeholder: ({ node }) => {
+			if (node.type.name === 'detailsSummary') {
+				return 'Summary';
+			}
+
+			return '';
+		},
+	}),
+	Emoji.configure({
+		emojis: gitHubEmojis,
+		enableEmoticons: true,
+		suggestion,
 	}),
 ];
