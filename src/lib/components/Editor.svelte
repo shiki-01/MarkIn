@@ -1,18 +1,26 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import showdown from 'showdown';
-  import * as Resizable from "$lib/components/ui/resizable";
+  import * as ResizableComp from "$lib/components/ui/resizable";
+  const Resizable = ResizableComp;
   import type { Editor, Focus } from '$lib/script/types.js';
   import Textarea from '$lib/components/Textarea.svelte';
   import TipTapEditor from '$lib/components/TipTapEditor.svelte';
 
   let editor: Editor = { type: 'Markdown', content: '' };
   let focus: Focus = 'HTML';
-  const converter = new showdown.Converter();
+
+  let converter: showdown.Converter;
+
+  onMount(() => {
+    converter = new showdown.Converter();
+    editor = { type: 'Markdown', content: converter.makeMarkdown('Hello, **world**!') };
+  });
 
   let markdown = '';
   let html = '';
 
-  $: if (editor) {
+  $: if (editor && converter) {
     editor.type = focus;
     if (editor.type === 'Markdown') {
       editor.content = markdown;

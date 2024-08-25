@@ -66,3 +66,60 @@ export type Emoji = {
 	emoji: string;
 	name: string;
 };
+
+export type RichText = {
+	type: "rich";
+	content: { text: string; style: TextStyle; }[]
+} | {
+	type: "plain";
+	content: Plain;
+}
+
+export type RichBase = {
+	heading?: "h1" | "h2" | "h3";
+	text: { type: "plain"; content: { text: string; }; };
+} | {
+	heading: null;
+	blockquote?: boolean;
+	list?: "bullet" | "ordered";
+	details?: { summary: string; content: RichText; };
+	task?: { checked: boolean; };
+	text: RichText;
+}
+
+export type Plain = {
+	text: string;
+	code?: boolean;
+	codeBlock?: { language: string };
+	emoji?: boolean;
+	hardBreak?: boolean;
+	horizontalRule?: boolean;
+	image?: boolean;
+}
+
+export type TextStyle = {
+	bold?: boolean;
+	italic?: boolean;
+	underline?: boolean;
+	strike?: boolean;
+	highlight?: boolean;
+	subscript?: boolean;
+	superscript?: boolean;
+	color?: string;
+	link?: string;
+}
+
+export type Table = {
+	align: "horizon" | "vertical";
+	header: { text: TextStyle[]; span: number; }[];
+	body: { text: TextStyle[]; span: number; }[][];
+}
+
+export type EditorContent = {
+	type: "table";
+	content: Table;
+} | {
+	type: "text";
+	content: RichBase;
+}
+
