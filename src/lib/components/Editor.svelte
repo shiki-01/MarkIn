@@ -1,12 +1,11 @@
 <script lang="ts">
   import showdown from 'showdown';
   import type { Editor, Focus } from '$lib/script/types.js';
-  import * as Resizable from "$lib/components/ui/resizable";
   import Textarea from '$lib/components/Textarea.svelte';
   import TipTapEditor from '$lib/components/TipTapEditor.svelte';
 
   let editor: Editor = { type: 'Markdown', content: '' };
-  let focus: Focus = 'Markdown';
+  let focus: Focus = 'HTML';
   const converter = new showdown.Converter();
 
   let markdown = '';

@@ -22,7 +22,13 @@
 			},
 			element: element,
 			extensions: [StarterKit, ...style],
-			content: content,
+			content: `
+			<h1>This is a 1st level heading</h1>
+        <h2>This is a 2nd level heading</h2>
+        <h3>This is a 3rd level heading</h3>
+        <h4>This 4th level heading will be converted to a paragraph, because levels are configured to be only 1, 2 or 3.</h4>
+
+			`,
 			onTransaction: () => {
 				// force re-render so `editor.isActive` works as expected
 				editor = editor;
@@ -65,7 +71,7 @@
 	<div on:click={handleClick} class="w-full h-full px-5">
 		<div bind:this={element} class="w-full h-full border-2 border-y-amber-300 {focus ? 'block' : 'hidden'}" />
 		{#if !focus}
-			<div class="w-full h-full border-2 p-2 border-gray-300">{@html content}</div>
+			<div class="tiptap w-full h-full border-2 p-2 border-gray-300">{@html content}</div>
 		{/if}
 	</div>
 </div>

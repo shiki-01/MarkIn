@@ -12,6 +12,7 @@ Thumbs.db
 
 # lock
 package-lock.json
+.npmrc
 
 # Env
 .env
