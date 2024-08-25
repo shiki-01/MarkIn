@@ -1,10 +1,10 @@
 <script lang="ts">
 	import './_setting.css';
-	import { config } from '$lib/stor.js';
+	import { config } from '$lib/script/stor.js';
 	import { onMount } from 'svelte';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import PluginIcon from '$lib/components/settings/comp/PluginIcon.svelte';
-	import type { Plugin } from '$lib/types.js';
+	import type { Plugin } from '$lib/script/types.js';
 	import SvelteMarkdown from 'svelte-markdown';
 
 	let market: Plugin[] = [];

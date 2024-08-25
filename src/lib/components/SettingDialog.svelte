@@ -2,7 +2,7 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Separator } from "$lib/components/ui/separator";
 	import SidebarNav from '$lib/components/SidebarNav.svelte';
-	import { isSettingsOpen } from '$lib/stor.js';
+	import { isSettingsOpen } from '$lib/script/stor.js';
 
 	let open: boolean;
 

@@ -6,10 +6,10 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Checkbox } from '$lib/components/ui/checkbox';
-	import { config } from '$lib/stor.js';
+	import { config } from '$lib/script/stor.js';
 	import { onMount } from 'svelte';
 	import SaveButton from '$lib/components/settings/comp/SaveButton.svelte';
-	import type { Config, Shortcut } from '$lib/types.js';
+	import type { Config, Shortcut } from '$lib/script/types.js';
 
 	let shortcuts: Shortcut[] = [];
 	let shortcutsBackup: Shortcut[] = [];

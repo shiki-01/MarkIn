@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import CommandDialog from '$lib/components/CommandDialog.svelte';
 	import SettingDialog from '$lib/components/SettingDialog.svelte';
-	import { isSettingsOpen, isCommandOpen } from '$lib/stor';
+	import { isSettingsOpen, isCommandOpen } from '$lib/script/stor.js';
 	// eslint-disable-next-line no-undef
 	import KeyboardEvent = Electron.KeyboardEvent;
 

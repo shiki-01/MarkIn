@@ -53,3 +53,10 @@ export type Config = {
 		}
 	}
 }
+
+export type Editor = {
+	type: Focus;
+	content: string;
+} | null;
+
+export type Focus = 'Markdown' | 'HTML';

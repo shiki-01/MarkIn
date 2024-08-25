@@ -1,7 +1,7 @@
 <script lang="ts">
 	import "./_setting.css";
 	import Comp from '$lib/components/settings/comp/Comp.svelte';
-	import { config } from '$lib/stor.js';
+	import { config } from '$lib/script/stor.js';
 	import { onMount } from 'svelte';
 	import SaveButton from '$lib/components/settings/comp/SaveButton.svelte';
 

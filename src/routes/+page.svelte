@@ -1,26 +1,7 @@
 <script lang="ts">
+	import Editor from '$lib/components/Editor.svelte';
 </script>
 
-<main>
-	<h1>Welcome to SvelteKit</h1>
-	<p>
-		Visit
-		to read the documentation
-	</p>
+<main class="w-full h-full">
+	<Editor />
 </main>
-
-<style>
-
-    main {
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    h1 {
-        color: #333;
-    }
-
-    p {
-        color: #666;
-    }
-</style>

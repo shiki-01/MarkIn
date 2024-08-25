@@ -3,7 +3,7 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { Menu } from 'lucide-svelte';
 	import Kbd from '$lib/components/Kbd.svelte';
-	import { isCommandOpen, isSettingsOpen } from '$lib/stor.js';
+	import { isCommandOpen, isSettingsOpen } from '$lib/script/stor.js';
 
 	let commandOpen: boolean;
 	let settingsOpen: boolean;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { Checkbox } from "$lib/components/ui/checkbox";
-	import type { Plugin } from '$lib/types.js';
+	import type { Plugin } from '$lib/script/types.js';
 
 	export let plugin: Plugin;
 	export let select: boolean = false;

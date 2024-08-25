@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { Config } from '$lib/types.js';
+import type { Config } from '$lib/script/types.js';
 
 export const isSettingsOpen = writable(false);
 export const isCommandOpen = writable(false);
