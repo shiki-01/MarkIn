@@ -14,7 +14,12 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Details from '@tiptap-pro/extension-details';
 import DetailsContent from '@tiptap-pro/extension-details-content';
 import DetailsSummary from '@tiptap-pro/extension-details-summary';
-import Emoji, { gitHubEmojis } from '@tiptap-pro/extension-emoji';
+import * as EmojiPack from '@tiptap-pro/extension-emoji';
+import { gitHubEmojis } from '@tiptap-pro/extension-emoji';
+import suggestion from '$lib/script/suggestion.js';
+import { undefined } from 'zod';
+
+const { Emoji } = EmojiPack;
 
 const lowlight = createLowlight(all);
 
@@ -49,8 +54,10 @@ export const style = [
 		},
 	}),
 	Emoji.configure({
+		HTMLAttributes: undefined,
+		forceFallbackImages: false,
 		emojis: gitHubEmojis,
 		enableEmoticons: true,
-		suggestion,
+		suggestion,,
 	}),
 ];

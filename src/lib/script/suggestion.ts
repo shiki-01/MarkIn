@@ -1,14 +1,20 @@
-import tippy, { type Instance, type Props } from 'tippy.js';
+declare module 'svelte/internal';
+import { SvelteComponent } from 'svelte/internal';
+import tippy, { Instance } from 'tippy.js';
 import EmojiList from '$lib/components/EmojiList.svelte';
 
+interface SuggestionProps {
+	editor: any;
+	clientRect: () => DOMRect;
+}
+
 export default {
-	items: ({ editor, query }: { editor: never; query: string }) => {
+	items: ({ editor, query }: SuggestionProps) => {
 		return editor.storage.emoji.emojis
-			.filter(({ shortcodes, tags }: { shortcodes: string[]; tags: string[] }) => {
+			.filter(({ shortcodes, tags }) => {
 				return (
-					shortcodes.find((shortcode: string) =>
-						shortcode.startsWith(query.toLowerCase()),
-					) || tags.find((tag: string) => tag.startsWith(query.toLowerCase()))
+					shortcodes.find((shortcode) => shortcode.startsWith(query.toLowerCase())) ||
+					tags.find((tag) => tag.startsWith(query.toLowerCase()))
 				);
 			})
 			.slice(0, 5);
@@ -17,26 +23,22 @@ export default {
 	allowSpaces: false,
 
 	render: () => {
-		let component: EmojiList;
-		let popup: Instance<Props>[];
+		let component: SvelteComponent;
+		let popup: Instance<any>[] = [];
 
 		return {
-			onStart: (props: {
-				items: never[];
-				command: never;
-				editor: never;
-				clientRect: DOMRect;
-			}) => {
+			onStart: (props: SuggestionProps) => {
 				component = new EmojiList({
-					target: document.body,
+					target: document.createElement('div'),
 					props: {
 						items: props.items,
-						command: props.command,
-						editor: props.editor,
+						command: (payload: { name: string }) => {
+							// Implement command handling here
+						},
 					},
 				});
 
-				popup = tippy(document.body, {
+				popup = tippy('body', {
 					getReferenceClientRect: props.clientRect,
 					appendTo: () => document.body,
 					content: component.$$.fragment,
@@ -47,16 +49,9 @@ export default {
 				});
 			},
 
-			onUpdate(props: {
-				items: never[];
-				command: never;
-				editor: never;
-				clientRect: DOMRect;
-			}) {
+			onUpdate(props: SuggestionProps) {
 				component.$set({
 					items: props.items,
-					command: props.command,
-					editor: props.editor,
 				});
 
 				popup[0].setProps({
@@ -64,15 +59,15 @@ export default {
 				});
 			},
 
-			onKeyDown(props: { event: { key: string } }) {
+			onKeyDown(props: { event: KeyboardEvent }) {
 				if (props.event.key === 'Escape') {
 					popup[0].hide();
 					component.$destroy();
-
 					return true;
 				}
 
-				return component.$$.ctx.onKeyDown(props.event);
+				// Handle key events
+				return false;
 			},
 
 			onExit() {

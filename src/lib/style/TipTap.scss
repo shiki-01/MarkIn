@@ -182,4 +182,11 @@
             font-weight: 700;
         }
     }
+
+    [data-type="emoji"] {
+        img {
+            height: 1em;
+            width: 1em;
+        }
+    }
 }

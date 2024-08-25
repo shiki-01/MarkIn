@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import type { Emoji } from '$lib/script/types.js';
 
-	export let items = [];
-	export let command;
+	export let items: Emoji[] = [];
+	export let command: (payload: { name: string }) => void;
+	export let selectedIndex: number = 0;
 
-	let selectedIndex = 0;
-	createEventDispatcher();
+	const dispatch = createEventDispatcher();
 
-	const selectItem = (index) => {
+	const selectItem = (index: number) => {
 		const item = items[index];
 		if (item) {
 			command({ name: item.name });
@@ -26,36 +27,30 @@
 		selectItem(selectedIndex);
 	};
 
-	const onKeyDown = (event) => {
-		if (event.key === 'ArrowUp') {
-			upHandler();
-			return true;
-		}
-		if (event.key === 'ArrowDown') {
-			downHandler();
-			return true;
-		}
-		if (event.key === 'Enter') {
-			enterHandler();
-			return true;
-		}
-		return false;
-	};
-
 	onMount(() => {
 		selectedIndex = 0;
-		window.addEventListener('keydown', onKeyDown);
 	});
 
-	onDestroy(() => {
-		window.removeEventListener('keydown', onKeyDown);
-	});
+	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key === 'ArrowUp') {
+			upHandler();
+			event.preventDefault();
+		} else if (event.key === 'ArrowDown') {
+			downHandler();
+			event.preventDefault();
+		} else if (event.key === 'Enter') {
+			enterHandler();
+			event.preventDefault();
+		}
+	}
+
+	document.addEventListener('keydown', handleKeyDown);
 </script>
 
 <div class="dropdown-menu">
 	{#each items as item, index}
 		<button
-			class:is-selected={index === selectedIndex}
+			class:selected={index === selectedIndex}
 			on:click={() => selectItem(index)}
 		>
 			{#if item.fallbackImage}
@@ -69,7 +64,7 @@
 </div>
 
 <style>
-    .is-selected {
+    .selected {
         background-color: #b3d4fc;
     }
 </style>

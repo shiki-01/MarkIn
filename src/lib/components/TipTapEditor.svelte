@@ -23,11 +23,33 @@
 			element: element,
 			extensions: [StarterKit, ...style],
 			content: `
-			<h1>This is a 1st level heading</h1>
-        <h2>This is a 2nd level heading</h2>
-        <h3>This is a 3rd level heading</h3>
-        <h4>This 4th level heading will be converted to a paragraph, because levels are configured to be only 1, 2 or 3.</h4>
-
+			<p>
+        These <span data-type="emoji" data-name="smiley"></span>
+        are <span data-type="emoji" data-name="fire"></span>
+        some <span data-type="emoji" data-name="smiley_cat"></span>
+        emojis <span data-type="emoji" data-name="exploding_head"></span>
+        rendered <span data-type="emoji" data-name="ghost"></span>
+        as <span data-type="emoji" data-name="massage"></span>
+        inline <span data-type="emoji" data-name="v"></span>
+        nodes.
+      </p>
+      <p>
+        Type <code>:</code> to open the autocomplete.
+      </p>
+      <p>
+        Even <span data-type="emoji" data-name="octocat"></span>
+        custom <span data-type="emoji" data-name="trollface"></span>
+        emojis <span data-type="emoji" data-name="neckbeard"></span>
+        are <span data-type="emoji" data-name="rage1"></span>
+        supported.
+      </p>
+      <p>
+        And unsupported emojis (without a fallback image) are rendered as just the shortcode <span data-type="emoji" data-name="this_does_not_exist"></span>.
+      </p>
+      <pre><code>In code blocks all emojis are rendered as plain text. 👩‍💻👨‍💻</code></pre>
+      <p>
+        There is also support for emoticons. Try typing <code><3</code>.
+      </p>
 			`,
 			onTransaction: () => {
 				// force re-render so `editor.isActive` works as expected

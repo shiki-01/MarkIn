@@ -23,26 +23,26 @@ export type Shortcut = {
 export type Config = {
 	personal: {
 		startUp: {
-			startUpPage: "default" | "last" | "custom";
-			default: "home" | "search" | "settings" | "plugins" | "about" | "shortcuts";
-		}
+			startUpPage: 'default' | 'last' | 'custom';
+			default: 'home' | 'search' | 'settings' | 'plugins' | 'about' | 'shortcuts';
+		};
 		privacy: {
 			history: boolean;
-		}
-	}
+		};
+	};
 	notification: {
 		notification: boolean;
-	}
-	shortcuts: { [key: string]: Shortcut }
+	};
+	shortcuts: { [key: string]: Shortcut };
 	appearance: {
-		theme: "light" | "dark" | "system";
+		theme: 'light' | 'dark' | 'system';
 		accentColor: string;
 		font: {
 			name: string;
 			id: string;
-		}
+		};
 		fontSize: string;
-	}
+	};
 	plugins: Plugin[];
 	language: 'en' | 'de' | 'fr' | 'es' | 'it' | 'nl' | 'pl' | 'pt' | 'ru' | 'tr' | 'zh';
 	vcs: {
@@ -50,9 +50,9 @@ export type Config = {
 			isConnected: boolean;
 			username: string;
 			token: string;
-		}
-	}
-}
+		};
+	};
+};
 
 export type Editor = {
 	type: Focus;
@@ -60,3 +60,9 @@ export type Editor = {
 } | null;
 
 export type Focus = 'Markdown' | 'HTML';
+
+export type Emoji = {
+	fallbackImage?: string;
+	emoji: string;
+	name: string;
+};
