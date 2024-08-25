@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import '$lib/style/TipTap.scss';
+	import { style } from '$lib/style/style.js';
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
-	import { createEventDispatcher } from 'svelte';
 
 	export let content: string = '';
 	export let handleClick: () => void;
@@ -20,7 +21,7 @@
 				},
 			},
 			element: element,
-			extensions: [StarterKit],
+			extensions: [StarterKit, ...style],
 			content: content,
 			onTransaction: () => {
 				// force re-render so `editor.isActive` works as expected
