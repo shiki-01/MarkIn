@@ -1,9 +1,11 @@
 <script lang="ts">
 	import '$lib/style/TipTap.scss';
+	import 'katex/dist/katex.min.css'
 	import { style } from '$lib/style/style.js';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
+	import { getHierarchicalIndexes, TableOfContents } from '@tiptap-pro/extension-table-of-contents'
 
 	export let content: string = '';
 	export let handleClick: () => void;
@@ -11,6 +13,7 @@
 
 	let element: HTMLDivElement;
 	let editor: Editor;
+	let items = []
 	const dispatch = createEventDispatcher();
 
 	onMount(() => {
@@ -21,7 +24,16 @@
 				},
 			},
 			element: element,
-			extensions: [StarterKit, ...style],
+			extensions: [
+				TableOfContents.configure({
+					getIndex: getHierarchicalIndexes,
+					onUpdate(content) {
+						items = content;
+					},
+				}),
+				StarterKit,
+				...style
+			],
 			content: `
 			<p>
         These <span data-type="emoji" data-name="smiley"></span>

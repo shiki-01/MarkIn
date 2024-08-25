@@ -1,5 +1,6 @@
 <script lang="ts">
   import showdown from 'showdown';
+  import * as Resizable from "$lib/components/ui/resizable";
   import type { Editor, Focus } from '$lib/script/types.js';
   import Textarea from '$lib/components/Textarea.svelte';
   import TipTapEditor from '$lib/components/TipTapEditor.svelte';
@@ -20,9 +21,6 @@
       editor.content = html;
       markdown = converter.makeMarkdown(html);
     }
-    console.log(html)
-    console.log(editor);
-    console.log(focus);
   }
 </script>
 

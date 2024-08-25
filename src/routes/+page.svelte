@@ -1,7 +1,7 @@
 <script lang="ts">
-	import TipTapEditor from '$lib/components/TipTapEditor.svelte';
+	import Editor from '$lib/components/Editor.svelte';
 </script>
 
 <main class="w-full h-full">
-	<TipTapEditor focus={true} />
+	<Editor />
 </main>

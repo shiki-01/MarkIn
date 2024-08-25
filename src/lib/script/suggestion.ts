@@ -1,20 +1,23 @@
-declare module 'svelte/internal';
+// @ts-ignore
 import { SvelteComponent } from 'svelte/internal';
-import tippy, { Instance } from 'tippy.js';
+import tippy, { type Instance } from 'tippy.js';
+import type { Emoji } from '$lib/script/types.js';
 import EmojiList from '$lib/components/EmojiList.svelte';
+import type { Editor } from '@tiptap/core';
 
 interface SuggestionProps {
-	editor: any;
-	clientRect: () => DOMRect;
+	items: Emoji[];
+	editor: Editor;
+	clientRect: (() => DOMRect | null) | null | undefined;
 }
 
 export default {
-	items: ({ editor, query }: SuggestionProps) => {
-		return editor.storage.emoji.emojis
-			.filter(({ shortcodes, tags }) => {
+	items: (props: {query: string; editor: Editor}) => {
+		return props.editor.storage.emoji.emojis
+			.filter(({ shortcodes, tags }: {shortcodes: string[]; tags: string[]}) => {
 				return (
-					shortcodes.find((shortcode) => shortcode.startsWith(query.toLowerCase())) ||
-					tags.find((tag) => tag.startsWith(query.toLowerCase()))
+					shortcodes.find((shortcode) => shortcode.startsWith(props.query.toLowerCase())) ||
+					tags.find((tag) => tag.startsWith(props.query.toLowerCase()))
 				);
 			})
 			.slice(0, 5);
@@ -28,20 +31,23 @@ export default {
 
 		return {
 			onStart: (props: SuggestionProps) => {
+				const container = document.createElement('div');
 				component = new EmojiList({
-					target: document.createElement('div'),
+					target: container,
 					props: {
 						items: props.items,
 						command: (payload: { name: string }) => {
-							// Implement command handling here
+							props.editor.chain().focus().insertContent(payload.name).run();
 						},
+						selectedIndex: 0,
 					},
 				});
 
+				// @ts-ignore
 				popup = tippy('body', {
-					getReferenceClientRect: props.clientRect,
+					getReferenceClientRect: props.clientRect || (() => null),
 					appendTo: () => document.body,
-					content: component.$$.fragment,
+					content: container,
 					showOnCreate: true,
 					interactive: true,
 					trigger: 'manual',
@@ -55,7 +61,7 @@ export default {
 				});
 
 				popup[0].setProps({
-					getReferenceClientRect: props.clientRect,
+					getReferenceClientRect: props.clientRect || (() => null),
 				});
 			},
 
