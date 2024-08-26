@@ -1,8 +1,10 @@
 <script lang="ts">
-	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	import { Separator } from "$lib/components/ui/separator";
+	import * as DialogComp from '$lib/components/ui/dialog/index.js';
+	import { Separator } from "$lib/components/ui/separator/index.js";
 	import SidebarNav from '$lib/components/SidebarNav.svelte';
 	import { isSettingsOpen } from '$lib/script/stor.js';
+	
+	const Dialog = DialogComp;
 
 	let open: boolean;
 

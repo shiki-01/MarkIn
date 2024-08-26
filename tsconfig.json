@@ -21,7 +21,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
-    "checkJs": false
+    "checkJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "$lib/*": ["src/lib/*"]
+    },
+    "skipDefaultLibCheck": true
   },
   "include": [
     "src/**/*.d.ts",

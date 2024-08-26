@@ -2,7 +2,7 @@
 	import '../app.css';
 	import 'quill/dist/quill.snow.css';
 	import { Maximize, Minus, X } from 'lucide-svelte';
-	import { Button } from '$lib/components/ui/button';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import MenuBar from '$lib/components/MenuBar.svelte';
 	import Command from '$lib/components/Command.svelte';
 	import { ModeWatcher } from 'mode-watcher';

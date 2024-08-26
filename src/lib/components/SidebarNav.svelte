@@ -2,8 +2,8 @@
 	import { cubicInOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
 	import { cn } from '$lib/utils.js';
-	import { Button } from '$lib/components/ui/button';
-	import { Skeleton } from '$lib/components/ui/skeleton';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
 
 	type Item = { href: string; title: string };
 

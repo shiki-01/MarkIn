@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index.js';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import * as DropdownMenuComp from '$lib/components/ui/dropdown-menu/index.js';
 	import { Menu } from 'lucide-svelte';
 	import Kbd from '$lib/components/Kbd.svelte';
 	import { isCommandOpen, isSettingsOpen } from '$lib/script/stor.js';
+
+	const DropdownMenu = DropdownMenuComp;
 
 	let commandOpen: boolean;
 	let settingsOpen: boolean;

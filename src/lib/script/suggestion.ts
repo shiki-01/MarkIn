@@ -1,4 +1,5 @@
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import { SvelteComponent } from 'svelte/internal';
 import tippy, { type Instance } from 'tippy.js';
 import type { Emoji } from '$lib/script/types.js';
@@ -43,7 +44,8 @@ export default {
 					},
 				});
 
-				// @ts-ignore
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
 				popup = tippy('body', {
 					getReferenceClientRect: props.clientRect || (() => null),
 					appendTo: () => document.body,

@@ -1,6 +1,8 @@
 <script lang="ts">
-	import * as Command from '$lib/components/ui/command/index.js';
+	import * as CommandComp from '$lib/components/ui/command/index.js';
 	import { isCommandOpen } from '$lib/script/stor.js';
+
+	const Command = CommandComp;
 
 	let open: boolean;
 

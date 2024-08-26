@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import showdown from 'showdown';
-  import * as ResizableComp from "$lib/components/ui/resizable";
+  import * as ResizableComp from "$lib/components/ui/resizable/index.js";
   const Resizable = ResizableComp;
   import type { Editor, Focus } from '$lib/script/types.js';
   import Textarea from '$lib/components/Textarea.svelte';
