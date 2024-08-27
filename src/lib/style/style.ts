@@ -16,7 +16,7 @@ import DetailsContent from '@tiptap-pro/extension-details-content';
 import DetailsSummary from '@tiptap-pro/extension-details-summary';
 import * as EmojiPack from '@tiptap-pro/extension-emoji';
 import { gitHubEmojis } from '@tiptap-pro/extension-emoji';
-import suggestion from '$lib/script/suggestion.js';
+import suggestion from '$lib/script/suggestion/emoji.js';
 import HardBreak from '@tiptap/extension-hard-break'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Image from '@tiptap/extension-image'
@@ -46,6 +46,8 @@ import type { Editor } from '@tiptap/core';
 import { Mathematics } from '@tiptap-pro/extension-mathematics'
 import TextAlign from '@tiptap/extension-text-align'
 import Typography from '@tiptap/extension-typography'
+import Slash from '$lib/script/suggestion/slash/slash.js'
+import slashSuggestions from '$lib/script/suggestion/slash/suggestion.js';
 
 const { Emoji } = EmojiPack;
 const { FileHandler } = FileHandlerPack;
@@ -88,6 +90,9 @@ export const style = [
 		emojis: gitHubEmojis,
 		enableEmoticons: true,
 		suggestion,
+	}),
+	Slash.configure({
+		suggestion: slashSuggestions,
 	}),
 	HardBreak,
 	HorizontalRule,

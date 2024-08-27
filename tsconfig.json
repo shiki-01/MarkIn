@@ -26,7 +26,8 @@
     "paths": {
       "$lib/*": ["src/lib/*"]
     },
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "jsx": "react"
   },
   "include": [
     "src/**/*.d.ts",

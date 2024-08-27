@@ -6,6 +6,8 @@
 		Italic,
 		Strikethrough,
 		Underline,
+		Code,
+		RemoveFormatting,
 		AlignCenter,
 		AlignLeft,
 		AlignRight,
@@ -29,23 +31,19 @@
 	}
 
 	let text: string[] = [];
-	let align: string = 'left';
+	let textAlign: 'left' | 'center' | 'right' = 'left';
 
 	$: if (editor) {
 		const updateTextStyles = () => {
-			text = editor.isActive('bold') ? [...text, 'bold'] : text.filter((i) => i !== 'bold');
-			text = editor.isActive('italic') ? [...text, 'italic'] : text.filter((i) => i !== 'italic');
-			text = editor.isActive('underline') ? [...text, 'underline'] : text.filter((i) => i !== 'underline');
-			text = editor.isActive('strikethrough') ? [...text, 'strikethrough'] : text.filter((i) => i !== 'strikethrough');
+			const styles = ['bold', 'italic', 'underline', 'strike', 'code'];
+			text = styles.filter(style => editor.isActive(style));
 		};
 
-		const updateAlignment = () => {
-			align = editor.isActive('align', { align: 'center' }) ? 'center' : editor.isActive('align', { align: 'right' }) ? 'right' : 'left';
-		};
+		textAlign = editor.isActive({ textAlign: 'center' }) ? 'center' : editor.isActive({ textAlign: 'right' }) ? 'right' : 'left';
 
 		updateTextStyles();
-		updateAlignment();
 	}
+
 </script>
 
 <div class="w-full h-full py-2 flex gap-2">
@@ -75,6 +73,11 @@
 			class="flex items-center gap-x-0.5"
 		>
 			<Toolbar.GroupItem
+				on:click={() => {
+					editor.chain().focus().toggleBold().run();
+				}}
+				disabled={!editor.can().chain().focus().toggleBold().run()}
+
 				aria-label="toggle bold"
 				value="bold"
 				class="inline-flex size-10 items-center justify-center rounded-9px bg-background-alt text-foreground/60 transition-all hover:bg-muted active:scale-98 active:bg-dark-10 data-[state=on]:bg-muted data-[state=on]:text-foreground/80 active:data-[state=on]:bg-dark-10"
@@ -82,6 +85,10 @@
 				<Bold class="size-6" />
 			</Toolbar.GroupItem>
 			<Toolbar.GroupItem
+				on:click={() => {
+					editor.chain().focus().toggleItalic().run();
+				}}
+				disabled={!editor.can().chain().focus().toggleItalic().run()}
 				aria-label="toggle italic"
 				value="italic"
 				class="inline-flex size-10 items-center justify-center rounded-9px bg-background-alt text-foreground/60 transition-all hover:bg-muted active:scale-98 active:bg-dark-10 data-[state=on]:bg-muted data-[state=on]:text-foreground/80 active:data-[state=on]:bg-dark-10"
@@ -89,6 +96,10 @@
 				<Italic class="size-6" />
 			</Toolbar.GroupItem>
 			<Toolbar.GroupItem
+				on:click={() => {
+					editor.chain().focus().toggleUnderline().run();
+				}}
+				disabled={!editor.can().chain().focus().toggleUnderline().run()}
 				aria-label="toggle underline"
 				value="underline"
 				class="inline-flex size-10 items-center justify-center rounded-9px bg-background-alt text-foreground/60 transition-all hover:bg-muted active:scale-98 active:bg-dark-10 data-[state=on]:bg-muted data-[state=on]:text-foreground/80 active:data-[state=on]:bg-dark-10"
@@ -96,22 +107,60 @@
 				<Underline class="size-6" />
 			</Toolbar.GroupItem>
 			<Toolbar.GroupItem
+				on:click={() => {
+					editor.chain().focus().toggleStrike().run();
+				}}
+				disabled={!editor.can().chain().focus().toggleStrike().run()}
 				aria-label="toggle strikethrough"
-				value="strikethrough"
+				value="strike"
 				class="inline-flex size-10 items-center justify-center rounded-9px bg-background-alt text-foreground/60 transition-all hover:bg-muted active:scale-98 active:bg-dark-10 data-[state=on]:bg-muted data-[state=on]:text-foreground/80 active:data-[state=on]:bg-dark-10"
 			>
 				<Strikethrough class="size-6" />
+			</Toolbar.GroupItem>
+			<Toolbar.GroupItem
+				on:click={() => {
+					editor.chain().focus().unsetAllMarks().run();
+					editor.chain().focus().toggleCode().run();
+				}}
+				disabled={!editor.can().chain().focus().toggleCode().run()}
+				aria-label="toggle code"
+				value="code"
+				class="inline-flex size-10 items-center justify-center rounded-9px bg-background-alt text-foreground/60 transition-all hover:bg-muted active:scale-98 active:bg-dark-10 data-[state=on]:bg-muted data-[state=on]:text-foreground/80 active:data-[state=on]:bg-dark-10"
+			>
+				<Code class="size-6" />
+			</Toolbar.GroupItem>
+		</Toolbar.Group>
+
+		<Toolbar.Group
+			bind:value={text}
+			type="single"
+			class="flex items-center gap-x-0.5"
+		>
+			<Toolbar.GroupItem
+				on:click={() => {
+					editor.chain().focus().unsetAllMarks().run();
+				}}
+				disabled={!editor.can().chain().focus().unsetAllMarks().run()}
+				aria-label="remove formatting"
+				value="removeFormatting"
+				class="inline-flex size-10 items-center justify-center rounded-9px bg-background-alt text-foreground/60 transition-all hover:bg-muted active:scale-98 active:bg-dark-10 data-[state=on]:bg-muted data-[state=on]:text-foreground/80 active:data-[state=on]:bg-dark-10"
+			>
+				<RemoveFormatting class="size-6" />
 			</Toolbar.GroupItem>
 		</Toolbar.Group>
 
 		<Separator.Root class="-my-1 mx-1 w-[1px] self-stretch bg-dark-10" />
 
 		<Toolbar.Group
-			bind:value={align}
+			bind:value={textAlign}
 			type="single"
 			class="flex items-center gap-x-0.5"
 		>
 			<Toolbar.GroupItem
+				on:click={() => {
+					editor.chain().focus().setTextAlign('left').run();
+				}}
+				disabled={!editor.can().chain().focus().setTextAlign('center').run()}
 				aria-label="align left"
 				value="left"
 				class="inline-flex size-10 items-center justify-center rounded-9px bg-background-alt text-foreground/60 transition-all hover:bg-muted active:scale-98 active:bg-dark-10 data-[state=on]:bg-muted data-[state=on]:text-foreground/80 active:data-[state=on]:bg-dark-10"
@@ -119,6 +168,10 @@
 				<AlignLeft class="size-6" />
 			</Toolbar.GroupItem>
 			<Toolbar.GroupItem
+				on:click={() => {
+					editor.chain().focus().setTextAlign('center').run();
+				}}
+				disabled={!editor.can().chain().focus().setTextAlign('center').run()}
 				aria-label="align center"
 				value="center"
 				class="inline-flex size-10 items-center justify-center rounded-9px bg-background-alt text-foreground/60 transition-all hover:bg-muted active:scale-98 active:bg-dark-10 data-[state=on]:bg-muted data-[state=on]:text-foreground/80 active:data-[state=on]:bg-dark-10"
@@ -126,6 +179,10 @@
 				<AlignCenter class="size-6" />
 			</Toolbar.GroupItem>
 			<Toolbar.GroupItem
+				on:click={() => {
+					editor.chain().focus().setTextAlign('right').run();
+				}}
+				disabled={!editor.can().chain().focus().setTextAlign('right').run()}
 				aria-label="align right"
 				value="right"
 				class="inline-flex size-10 items-center justify-center rounded-9px bg-background-alt text-foreground/60 transition-all hover:bg-muted active:scale-98 active:bg-dark-10 data-[state=on]:bg-muted data-[state=on]:text-foreground/80 active:data-[state=on]:bg-dark-10"

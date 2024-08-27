@@ -9,7 +9,8 @@
 		type TableOfContentData,
 		TableOfContents,
 	} from '@tiptap-pro/extension-table-of-contents';
-	import StyleButton from '$lib/components/StyleButton.svelte';
+	import Bubble from '$lib/components/Bubble.svelte';
+	import BubbleMenu from '@tiptap/extension-bubble-menu';
 
 	export let content: string = '';
 	export let handleClick: () => void;
@@ -20,7 +21,11 @@
 	let editor: Editor;
 	let items: TableOfContentData | [] = [];
 
-	$: console.log(items);
+	$: console.log(content);
+
+	$: if (editor && !focus) {
+		editor.commands.setContent(content);
+	}
 
 	onMount(() => {
 		editor = new Editor({
@@ -37,10 +42,14 @@
 						items = content;
 					},
 				}),
+				BubbleMenu.configure({
+					element: window.document.querySelector('.bubble-menu'),
+				}),
 				...(style as AnyExtension[]),
 			],
 			content: content,
 			onTransaction: () => {
+				editor = editor;
 				dispatch('contentChange', editor.getHTML());
 			},
 		});
@@ -51,20 +60,25 @@
 			editor.destroy();
 		}
 	});
+
+	function handleEnter(event: KeyboardEvent) {
+		if (event.key === 'Enter') {
+			editor.commands.clearNodes();
+		}
+	}
 </script>
 
+<svelte:window on:keydown={handleEnter} />
+
 <div class="w-full h-full flex flex-col">
-	<div class="flex gap-2 px-5">
+	<div class="bubble-menu" style="visibility: hidden">
 		{#if editor}
-			<StyleButton {editor} />
+			<Bubble editor={editor} />
 		{/if}
 	</div>
-
-	<div role="button" tabindex="0" on:click={handleClick} on:keydown={(e) => e.key === 'Enter' && handleClick()}
-		 class="w-full h-full px-5">
-		<div bind:this={element} class="w-full h-full border-2 {focus ? 'block' : 'hidden'}" />
-		{#if !focus}
-			<div class="tiptap w-full h-full border-2 p-2 border-gray-300">{content}</div>
-		{/if}
+	<div role="button" tabindex="0" on:click={() => {handleClick()}}
+		 on:keydown={(e) => e.key === 'Enter' && handleClick()}
+		 class="w-full h-full px-5 cursor-text">
+		<div bind:this={element} class="w-full h-full border-2 overflow-y-auto" />
 	</div>
 </div>

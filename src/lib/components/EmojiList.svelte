@@ -9,7 +9,6 @@
 
 	const selectItem = (index: number) => {
 		const item = items[index];
-		console.log(item);
 		if (item) {
 			command({ name: item.name });
 		}
@@ -32,7 +31,6 @@
 			upHandler();
 			event.preventDefault();
 		} else if (event.key === 'ArrowDown') {
-			console.log('down');
 			downHandler();
 			event.preventDefault();
 		} else if (event.key === 'Enter') {
@@ -43,10 +41,12 @@
 
 	onMount(() => {
 		selectedIndex = 0;
-		window.addEventListener('keydown', handleKeyDown, true);
-		return () => {
-			window.removeEventListener('keydown', handleKeyDown, true);
-		};
+		if (typeof window !== 'undefined') {
+			window.addEventListener('keydown', handleKeyDown, true);
+			return () => {
+				window.removeEventListener('keydown', handleKeyDown, true);
+			};
+		}
 	});
 </script>
 

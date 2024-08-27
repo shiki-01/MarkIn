@@ -1,3 +1,5 @@
+import type { Range } from '@tiptap/core';
+
 export type Plugin = {
 	active: boolean;
 	name: string;
@@ -67,25 +69,29 @@ export type Emoji = {
 	name: string;
 };
 
-export type RichText = {
-	type: "rich";
-	content: { text: string; style: TextStyle; }[]
-} | {
-	type: "plain";
-	content: Plain;
-}
+export type RichText =
+	| {
+			type: 'rich';
+			content: { text: string; style: TextStyle }[];
+	  }
+	| {
+			type: 'plain';
+			content: Plain;
+	  };
 
-export type RichBase = {
-	heading?: "h1" | "h2" | "h3";
-	text: { type: "plain"; content: { text: string; }; };
-} | {
-	heading: null;
-	blockquote?: boolean;
-	list?: "bullet" | "ordered";
-	details?: { summary: string; content: RichText; };
-	task?: { checked: boolean; };
-	text: RichText;
-}
+export type RichBase =
+	| {
+			heading?: 'h1' | 'h2' | 'h3';
+			text: { type: 'plain'; content: { text: string } };
+	  }
+	| {
+			heading: null;
+			blockquote?: boolean;
+			list?: 'bullet' | 'ordered';
+			details?: { summary: string; content: RichText };
+			task?: { checked: boolean };
+			text: RichText;
+	  };
 
 export type Plain = {
 	text: string;
@@ -95,7 +101,7 @@ export type Plain = {
 	hardBreak?: boolean;
 	horizontalRule?: boolean;
 	image?: boolean;
-}
+};
 
 export type TextStyle = {
 	bold?: boolean;
@@ -107,19 +113,54 @@ export type TextStyle = {
 	superscript?: boolean;
 	color?: string;
 	link?: string;
-}
+};
 
 export type Table = {
-	align: "horizon" | "vertical";
-	header: { text: TextStyle[]; span: number; }[];
-	body: { text: TextStyle[]; span: number; }[][];
+	align: 'horizon' | 'vertical';
+	header: { text: TextStyle[]; span: number }[];
+	body: { text: TextStyle[]; span: number }[][];
+};
+
+export type EditorContent =
+	| {
+			type: 'table';
+			content: Table;
+	  }
+	| {
+			type: 'text';
+			content: RichBase;
+	  };
+
+
+import type { Editor as EditorCore } from '@tiptap/core';
+
+export type CommandItem = {
+	title: string;
+	subtitle: string;
+	icon?: string;
+	command: ({ editor, range }: EanR) => void;
+};
+
+export type SlashProps = {
+	command: ({ editor, range }: EanR) => void;
+	range: Range;
+	getReferenceClientRect: (() => DOMRect | null) | null | undefined;
+};
+
+export type EanR = {
+	editor: EditorCore;
+	range: Range;
 }
 
-export type EditorContent = {
-	type: "table";
-	content: Table;
-} | {
-	type: "text";
-	content: RichBase;
-}
+export type Command = {
+	editor: EditorCore;
+	range: Range;
+	items: ({ editor, range, items }: { editor: EditorCore; range: Range; items: CommandItem[] }) => void;
+	clientRect: (() => DOMRect | null) | null | undefined;
+};
 
+export type CommandWithProps = {
+	editor: EditorCore;
+	range: Range;
+	props: SlashProps;
+};

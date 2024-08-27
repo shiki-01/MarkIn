@@ -1,9 +1,13 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import preprocessReact from "svelte-preprocess-react/preprocessReact";
 import { resolve } from 'path';
 
 export default {
-	preprocess: vitePreprocess(),
+	preprocess: [
+		vitePreprocess(),
+		preprocessReact(),
+	],
 	kit: {
 		adapter: adapter(),
 		alias: {

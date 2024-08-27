@@ -21,12 +21,13 @@
   let html = '';
 
   $: if (editor && converter) {
+    console.log(editor);
     editor.type = focus;
     if (editor.type === 'Markdown') {
       editor.content = markdown;
       html = converter.makeHtml(markdown);
     } else {
-      editor.content = html;
+      editor.content = converter.makeMarkdown(html);
       markdown = converter.makeMarkdown(html);
     }
   }
