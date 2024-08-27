@@ -2,7 +2,7 @@
 // @ts-expect-error
 import { SvelteComponent } from 'svelte/internal';
 import tippy, { type Instance } from 'tippy.js';
-import SlashCommandList from '$lib/components/SlashList.svelte';
+import SlashCommandList from '$lib/extension/slash/components/SlashList.svelte';
 import type { Command, SlashProps } from '$lib/script/types.js';
 
 export default {
@@ -39,12 +39,7 @@ export default {
 				subtitle: 'bold',
 				icon: 'bold',
 				command: ({ editor, range }: Command) => {
-					editor
-						.chain()
-						.focus()
-						.deleteRange(range)
-						.setMark('bold')
-						.run();
+					editor.chain().focus().deleteRange(range).setMark('bold').run();
 				},
 			},
 			{
@@ -52,12 +47,7 @@ export default {
 				subtitle: 'bold',
 				icon: 'italic',
 				command: ({ editor, range }: Command) => {
-					editor
-						.chain()
-						.focus()
-						.deleteRange(range)
-						.setMark('italic')
-						.run();
+					editor.chain().focus().deleteRange(range).setMark('italic').run();
 				},
 			},
 			{
@@ -65,12 +55,7 @@ export default {
 				subtitle: 'bold',
 				icon: 'underline',
 				command: ({ editor, range }: Command) => {
-					editor
-						.chain()
-						.focus()
-						.deleteRange(range)
-						.setMark('underline')
-						.run();
+					editor.chain().focus().deleteRange(range).setMark('underline').run();
 				},
 			},
 			{
@@ -78,12 +63,7 @@ export default {
 				subtitle: 'bold',
 				icon: 'strike',
 				command: ({ editor, range }: Command) => {
-					editor
-						.chain()
-						.focus()
-						.deleteRange(range)
-						.setMark('strike')
-						.run();
+					editor.chain().focus().deleteRange(range).setMark('strike').run();
 				},
 			},
 			{
@@ -91,12 +71,7 @@ export default {
 				subtitle: 'bold',
 				icon: 'link',
 				command: ({ editor, range }: Command) => {
-					editor
-						.chain()
-						.focus()
-						.deleteRange(range)
-						.setNode('link', { href: '' })
-						.run();
+					editor.chain().focus().deleteRange(range).setNode('link', { href: '' }).run();
 				},
 			},
 			{
@@ -104,12 +79,7 @@ export default {
 				subtitle: 'bold',
 				icon: 'code',
 				command: ({ editor, range }: Command) => {
-					editor
-						.chain()
-						.focus()
-						.deleteRange(range)
-						.setMark('code')
-						.run();
+					editor.chain().focus().deleteRange(range).setMark('code').run();
 				},
 			},
 		].filter(({ title }) => title.toLowerCase().startsWith(query.toLowerCase()));

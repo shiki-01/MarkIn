@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '$lib/style/EmojiList.scss';
+	import '$lib/extension/emoji/style/EmojiList.scss';
 	import { onMount } from 'svelte';
 	import type { Emoji } from '$lib/script/types.js';
 

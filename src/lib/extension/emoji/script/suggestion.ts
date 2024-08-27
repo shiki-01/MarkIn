@@ -2,23 +2,21 @@
 // @ts-expect-error
 import { SvelteComponent } from 'svelte/internal';
 import tippy, { type Instance } from 'tippy.js';
-import type { Emoji } from '$lib/script/types.js';
+import type { SlashProps } from '$lib/script/types.js';
 import EmojiList from '$lib/components/EmojiList.svelte';
 import type { Editor } from '@tiptap/core';
-
-interface SuggestionProps {
-	items: Emoji[];
-	editor: Editor;
-	clientRect: (() => DOMRect | null) | null | undefined;
-}
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import type { SuggestionProps } from '@tiptap/extension-mention/dist/packages/suggestion/src/index.js';
 
 export default {
-	items: (props: {query: string; editor: Editor}) => {
+	items: (props: { query: string; editor: Editor }) => {
 		return props.editor.storage.emoji.emojis
-			.filter(({ shortcodes, tags }: {shortcodes: string[]; tags: string[]}) => {
+			.filter(({ shortcodes, tags }: { shortcodes: string[]; tags: string[] }) => {
 				return (
-					shortcodes.find((shortcode) => shortcode.startsWith(props.query.toLowerCase())) ||
-					tags.find((tag) => tag.startsWith(props.query.toLowerCase()))
+					shortcodes.find((shortcode) =>
+						shortcode.startsWith(props.query.toLowerCase()),
+					) || tags.find((tag) => tag.startsWith(props.query.toLowerCase()))
 				);
 			})
 			.slice(0, 5);
@@ -28,7 +26,7 @@ export default {
 
 	render: () => {
 		let component: SvelteComponent;
-		let popup: Instance<any>[] = [];
+		let popup: Instance<SlashProps>[] = [];
 
 		return {
 			onStart: (props: SuggestionProps) => {

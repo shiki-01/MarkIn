@@ -2,6 +2,7 @@
 	import '$lib/style/TipTap.scss';
 	import 'katex/dist/katex.min.css';
 	import { style } from '$lib/style/style.js';
+	import { extension } from '$lib/extension/extension.js';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import { type AnyExtension, Editor } from '@tiptap/core';
 	import {
@@ -21,8 +22,6 @@
 	let editor: Editor;
 	let items: TableOfContentData | [] = [];
 
-	$: console.log(content);
-
 	$: if (editor && !focus) {
 		editor.commands.setContent(content);
 	}
@@ -34,7 +33,7 @@
 					class: 'prose w-full h-full p-2',
 				},
 			},
-			element: element,
+			element: element as HTMLElement,
 			extensions: [
 				TableOfContents.configure({
 					getIndex: getHierarchicalIndexes,
@@ -43,15 +42,16 @@
 					},
 				}),
 				BubbleMenu.configure({
-					element: window.document.querySelector('.bubble-menu'),
+					element: document.querySelector('.bubble-menu'),
 				}),
 				...(style as AnyExtension[]),
+				...(extension as AnyExtension[]),
 			],
 			content: content,
 			onTransaction: () => {
 				editor = editor;
 				dispatch('contentChange', editor.getHTML());
-			},
+			}
 		});
 	});
 
@@ -69,6 +69,12 @@
 </script>
 
 <svelte:window on:keydown={handleEnter} />
+
+<div class="hidden">
+	{#if items.length > 0}
+		<TableOfContents items={items} />
+	{/if}
+</div>
 
 <div class="w-full h-full flex flex-col">
 	<div class="bubble-menu" style="visibility: hidden">
