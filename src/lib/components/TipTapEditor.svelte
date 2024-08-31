@@ -4,7 +4,7 @@
 	import { style } from '$lib/style/style.js';
 	import { extension } from '$lib/extension/extension.js';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-	import { type AnyExtension, Editor } from '@tiptap/core';
+	import { type AnyExtension, Editor, type EditorOptions } from '@tiptap/core';
 	import {
 		getHierarchicalIndexes,
 		type TableOfContentData,
@@ -52,7 +52,7 @@
 				editor = editor;
 				dispatch('contentChange', editor.getHTML());
 			}
-		});
+		} as Partial<EditorOptions>);
 	});
 
 	onDestroy(() => {

@@ -5,7 +5,8 @@
   const Resizable = ResizableComp;
   import type { Editor, Focus } from '$lib/script/types.js';
   import Textarea from '$lib/components/Textarea.svelte';
-  import TipTapEditor from '$lib/components/TipTapEditor.svelte';
+  //import TipTapEditor from '$lib/components/TipTapEditor.svelte';
+  import EditorJS from '$lib/components/EditorJS.svelte';
 
   let editor: Editor = { type: 'Markdown', content: '' };
   let focus: Focus = 'HTML';
@@ -46,12 +47,7 @@
   <Resizable.Handle />
   <Resizable.Pane class="h-full border-l border-gray-300">
       {#if editor}
-        <TipTapEditor
-            content={html}
-            on:contentChange={(e) => html = e.detail.toString()}
-            focus={focus === 'HTML'}
-            handleClick={() => focus = 'HTML'}
-        />
+        <EditorJS />
       {/if}
   </Resizable.Pane>
 </Resizable.PaneGroup>
