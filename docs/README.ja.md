@@ -42,7 +42,21 @@
 
 ## ライセンス
 
-このソフトウェアは、[MIT License](https://opensource.org/licenses/MIT) の元で配布されています。
-全文は [LICENSE](../LICENSE) から確認出来ます
+このプロジェクトは、以下のオープンソースライブラリを使用しています：
+
+- [Svelte](https://svelte.jp/) - [MIT License](https://opensource.org/licenses/MIT)
+- [SvelteKit](https://kit.svelte.jp) - [MIT License](https://opensource.org/licenses/MIT)
+- [TypeScript](https://typescriptlang.org) - [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+- [Electron](https://www.electronjs.org/ja/) - [MIT License](https://opensource.org/licenses/MIT)
+- [Bits](https://bits-ui.com/) - [MIT License](https://opensource.org/licenses/MIT)
+- [shadcn-svelte](https://shadcn.dev/) - [MIT License](https://opensource.org/licenses/MIT)
+- [Lucide](https://lucide.dev/) - [ISC License](https://opensource.org/licenses/ISC)
+- [Octokit](https://octokit.github.io/rest.js/) - [MIT License](https://opensource.org/licenses/MIT)
+- [Editor.js](https://editorjs.io/) - [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+各ライブラリの詳細なライセンス情報については、それぞれのリポジトリのLICENSEファイルをご参照ください。
+
+このソフトウェアが著作を保持する範囲については、[MIT License](https://opensource.org/licenses/MIT) の元で配布されています。
+全文は [LICENSE](../LICENSE) から確認出来ます。
 
 ## スペシャルサンクス
