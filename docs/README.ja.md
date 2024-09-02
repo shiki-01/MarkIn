@@ -56,7 +56,9 @@
 
 各ライブラリの詳細なライセンス情報については、それぞれのリポジトリのLICENSEファイルをご参照ください。
 
-このソフトウェアが著作を保持する範囲については、[MIT License](https://opensource.org/licenses/MIT) の元で配布されています。
+本プロジェクトの元で作成されたコードについては、[MIT License](https://opensource.org/licenses/MIT) の元で配布されています。
 全文は [LICENSE](../LICENSE) から確認出来ます。
+
+
 
 ## スペシャルサンクス
