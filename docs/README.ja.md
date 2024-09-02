@@ -42,4 +42,7 @@
 
 ## ライセンス
 
+このソフトウェアは、[MIT License](https://opensource.org/licenses/MIT) の元で配布されています。
+全文は [LICENSE](../LICENSE) から確認出来ます
+
 ## スペシャルサンクス
